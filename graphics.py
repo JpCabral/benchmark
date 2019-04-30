@@ -2,9 +2,6 @@ import matplotlib.pyplot as plt
 import subprocess
 
 def grafico_througput(throughputlist, destino, time, arranjohoras):
-    # Data for plotting
-    # x = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
-    # x = np.arange(start=1, stop=10 + 1, step=1)
     x = arranjohoras
     y = throughputlist
 
@@ -19,15 +16,12 @@ def grafico_througput(throughputlist, destino, time, arranjohoras):
 
 
 def grafico_packetloss(packetlosslist, destino, time, arranjohoras):
-    # Data for plotting
-    # x = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
     x = arranjohoras
     y = packetlosslist
 
     fig, ax = plt.subplots()
     ax.plot(x, y)
 
-    # ax.set(xlabel='time (min)', ylabel='loss(%)', title='Average Packet Loss')
     ax.set(xlabel='time (hours)', ylabel='loss(%)', title='Average Packet Loss')
     ax.grid()
 
@@ -35,15 +29,12 @@ def grafico_packetloss(packetlosslist, destino, time, arranjohoras):
 
 
 def grafico_delay(delaylist, destino, time, arranjohoras):
-    # Data for plotting
-    # x = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
     x = arranjohoras
     y = delaylist
 
     fig, ax = plt.subplots()
     ax.plot(x, y)
 
-    # ax.set(xlabel='time (min)', ylabel='delay(ms)', title='Average Delay')
     ax.set(xlabel='time (hours)', ylabel='delay(ms)', title='Average Delay')
 
     ax.grid()
@@ -52,16 +43,12 @@ def grafico_delay(delaylist, destino, time, arranjohoras):
 
 
 def grafico_packet_vs_time(packetlist, destino, time, arranjohoras):
-    # Data for plotting
     x = arranjohoras
-    # x = np.arange(start=1, stop=10 + 1, step=1)
     y = packetlist
 
     fig, ax = plt.subplots()
     ax.plot(x, y)
 
-    # ax.set(xlabel='time (min)', ylabel='delay(ms)', title='Average Delay')
-    # ax.set(xlabel='time (hours)', ylabel='delay(ms)', title='Average Delay')
     ax.set(xlabel='time (min)', ylabel='packets', title='Average Packets')
 
     ax.grid()
@@ -70,7 +57,7 @@ def grafico_packet_vs_time(packetlist, destino, time, arranjohoras):
 
 
 def grafico_margem_throughput(qtdhoras, throughput_central_list, throughput_maior_list, throughput_menor_list):
-    # Data for plotting
+
     x = np.arange(start=1, stop=qtdhoras + 1, step=1)
     y = throughput_central_list
 

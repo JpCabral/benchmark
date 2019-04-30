@@ -1,7 +1,7 @@
 import os
 import subprocess
 from scapy.all import rdpcap
-import numpy as np
+from sniffer import captura_pcap
 import time
 
 def packetloss_calc(arquivo, usuario):

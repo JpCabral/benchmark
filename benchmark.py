@@ -1,4 +1,5 @@
 from  operation_modes import *
+import numpy as np
 
 camada1_delay_list = []
 camada1_throughput_list = []
@@ -13,13 +14,13 @@ packetloss_horas = []
 delay_horas = []
 arquivo = '5min_fila_wifi.pcapng'
 janeladetempo = 1  # 5 * 60  # Segundos de captura do .pcapng
-interface = 'ep0s31f6'
+interface = 'enp0s31f6'
 usuario = 'jpcabral'
 tempo = 60
 intervalo = 5
 vez = 0
 qtdhoras = 3
-destino = subprocess.getoutput('pwd') + '/'
+destino = subprocess.getoutput('pwd') + '/graphics/'
 benchmark_executado = False
 
 arranjotempocoleta = np.arange(start=0, stop=60 + 1, step=5)
