@@ -2,13 +2,13 @@ import time
 import paho.mqtt.client as mqtt
 import sys
 import argparse
-import gpio as GPIO  # Import GPIO library
-import time  # Import time library
+import gpio as GPIO
+import time
 import serial
 
-def ler_sensor_ultrassonico(horasleitura):
-    timeout = horasleitura * 60 * 60  # Horas em segundos
-    timeout_start = time.time()
+
+def ler_sensor_ultrassonico():
+
     tempo = 0
 
     MQTT_PORT = 1883
@@ -32,7 +32,7 @@ def ler_sensor_ultrassonico(horasleitura):
         result, mid = client.publish(TOPICO, msg)
         print('Mensagem enviada ao canal: %d, [MQTT_ADDRESS: %s]' % (mid, MQTT_ADDRESS))
 
-    while time.time() < timeout_start + timeout:
+    while True:
 
         GPIO.output(TRIG, False)  # Set TRIG as LOW
         time.sleep(2)  # Delay of 2 seconds
@@ -57,3 +57,5 @@ def ler_sensor_ultrassonico(horasleitura):
             print("++ MSG-SEND:", mensagem, "\n")
 
             send_message(mensagem, MQTT_ADDRESS)  # Send message via MQTT protocol
+
+
