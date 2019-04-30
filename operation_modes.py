@@ -137,8 +137,6 @@ def benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_d
             total += delay
         total = total / len(arranjotempocoleta)
         delay_horas.append(total)
-        print("Tamanho camada1_delay_list:", len(camada1_delay_list))
-        print("Tamanho delay_horas:", len(delay_horas))
         total = 0
 
         for throughput in camada1_throughput_list:

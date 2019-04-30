@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import subprocess
+from os import system
 
 def grafico_througput(throughputlist, destino, time, arranjohoras):
     x = arranjohoras
@@ -11,8 +12,11 @@ def grafico_througput(throughputlist, destino, time, arranjohoras):
     # ax.set(xlabel='time (min)', ylabel='throughput (bps)', title='Average Throughput')
     ax.set(xlabel='time (hours)', ylabel='throughput (bps)', title='Average Throughput')
     ax.grid()
-
-    fig.savefig(destino + "[" + str(time) + "]" + " - Throughput.png")
+    try:
+        fig.savefig(destino + "[" + str(time) + "]" + " - Throughput.png")
+    except FileNotFoundError:
+        system('mkdir '+destino)
+        fig.savefig(destino + "[" + str(time) + "]" + " - Throughput.png")
 
 
 def grafico_packetloss(packetlosslist, destino, time, arranjohoras):
@@ -24,9 +28,11 @@ def grafico_packetloss(packetlosslist, destino, time, arranjohoras):
 
     ax.set(xlabel='time (hours)', ylabel='loss(%)', title='Average Packet Loss')
     ax.grid()
-
-    fig.savefig(destino + "[" + str(time) + "]" + " - Packet_loss.png")
-
+    try:
+        fig.savefig(destino + "[" + str(time) + "]" + " - Packet_loss.png")
+    except FileNotFoundError:
+        system('mkdir '+destino)
+        fig.savefig(destino + "[" + str(time) + "]" + " - Packet_loss.png")
 
 def grafico_delay(delaylist, destino, time, arranjohoras):
     x = arranjohoras
@@ -38,9 +44,11 @@ def grafico_delay(delaylist, destino, time, arranjohoras):
     ax.set(xlabel='time (hours)', ylabel='delay(ms)', title='Average Delay')
 
     ax.grid()
-
-    fig.savefig(destino + "[" + str(time) + "]" + " - Delay.png")
-
+    try:
+        fig.savefig(destino + "[" + str(time) + "]" + " - Delay.png")
+    except FileNotFoundError:
+        system('mkdir '+destino)
+        fig.savefig(destino + "[" + str(time) + "]" + " - Delay.png")
 
 def grafico_packet_vs_time(packetlist, destino, time, arranjohoras):
     x = arranjohoras
@@ -52,9 +60,11 @@ def grafico_packet_vs_time(packetlist, destino, time, arranjohoras):
     ax.set(xlabel='time (min)', ylabel='packets', title='Average Packets')
 
     ax.grid()
-
-    fig.savefig(destino + "[" + str(time) + "]" + " - Packet_vs_Time.png")
-
+    try:
+        fig.savefig(destino + "[" + str(time) + "]" + " - Packet_vs_Time.png")
+    except FileNotFoundError:
+        system('mkdir '+destino)
+        fig.savefig(destino + "[" + str(time) + "]" + " - Packet_vs_Time.png")
 
 def grafico_margem_throughput(qtdhoras, throughput_central_list, throughput_maior_list, throughput_menor_list):
 
