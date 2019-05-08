@@ -27,17 +27,16 @@ benchmark_executado = False
 arranjotempocoleta = np.arange(start=0, stop=60 + 1, step=5)
 arranjohoras = np.arange(start=1, stop=qtdhoras + 1, step=1)
 
+
 try:
-    threadSensor = Thread(target=ler_sensor_ultrassonico())
-    threadSensor.start()
 
-    benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_delay_list,
-                   camada1_packetloss_list, camada1_throughput_list, usuario, arranjotempocoleta,
-                   packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino)
-
-    threadSensor.join()
-
-    # benchmark_default(vez, tempo, interface, janeladetempo, arquivo, usuario)
+    threadBenchmark = Thread(target=benchmark_media_horas, args=(qtdhoras, arquivo, interface, janeladetempo, camada1_delay_list,
+                          camada1_packetloss_list, camada1_throughput_list, usuario, arranjotempocoleta,
+                          packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,
+                          destino))
+    threadBenchmark.start()
+    ler_sensor_ultrassonico()
+    threadBenchmark.join()
 
 except KeyboardInterrupt:
     print("Execução abortada pelo usuário")

@@ -2,7 +2,7 @@ from sensor import *
 from graphics import *
 from metrics import *
 from sniffer import *
-
+from threading import Thread
 def margem_de_erro(qtdhoras, tempo, intervalo, arquivo, interface, janeladetempo, camada1_delay_list,
                    camada1_packetloss_list, camada1_throughput_list, usuario, camada1_delays,
                    camada1_packetloss, camada1_throughputs):
@@ -75,6 +75,8 @@ def margem_de_erro(qtdhoras, tempo, intervalo, arquivo, interface, janeladetempo
 def benchmark_default(vez, tempo, intervalo, arquivo, interface, janeladetempo, camada1_delay_list,
                       camada1_packetloss_list, camada1_throughput_list, usuario, delay_horas,throughput_horas,
                       packetloss_horas):
+    threadSensor = Thread(target=ler_sensor_ultrassonico(), args=())
+    threadSensor.start()
     while vez != tempo + intervalo:
         print("\nIteração ", vez, "/", tempo, )
         captura_pcap(arquivo, interface, janeladetempo)
@@ -116,10 +118,10 @@ def benchmark_default(vez, tempo, intervalo, arquivo, interface, janeladetempo, 
     camada1_delay_list.clear()
     camada1_packetloss_list.clear()
 
-
 def benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_delay_list,
                    camada1_packetloss_list, camada1_throughput_list, usuario, arranjotempocoleta,
                    packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino):
+
     for i in range(1, qtdhoras + 1):
         print("###################################### Etapa: " + str(i) + " ######################################")
         for etapa in arranjotempocoleta:
