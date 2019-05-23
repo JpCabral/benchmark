@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from numpy import arange
 import subprocess
 from os import system
 
@@ -57,7 +58,7 @@ def grafico_packet_vs_time(packetlist, destino, time, arranjohoras):
     fig, ax = plt.subplots()
     ax.plot(x, y)
 
-    ax.set(xlabel='time (min)', ylabel='packets', title='Average Packets')
+    ax.set(xlabel='time (hours)', ylabel='packets', title='Average Packets')
 
     ax.grid()
     try:
@@ -68,7 +69,7 @@ def grafico_packet_vs_time(packetlist, destino, time, arranjohoras):
 
 def grafico_margem_throughput(qtdhoras, throughput_central_list, throughput_maior_list, throughput_menor_list):
 
-    x = np.arange(start=1, stop=qtdhoras + 1, step=1)
+    x = arange(start=1, stop=qtdhoras + 1, step=1)
     y = throughput_central_list
 
     plt.errorbar(x, y, xerr=throughput_menor_list, yerr=throughput_maior_list, fmt='--o')
@@ -116,3 +117,16 @@ def grafico_margem_throughput(qtdhoras, throughput_central_list, throughput_maio
     #              label='Average Throughput'
     #            fmt='-',
     #             color='g',
+
+
+# 
+# oot@raspberrypi:/home/pi/benchmark# iperf3 -c 10.16.0.237 -F 5min_fila_wifi.pcapng
+# Connecting to host 10.16.0.237, port 5201
+# [  4] local 10.16.0.122 port 54386 connected to 10.16.0.237 port 5201
+# [ ID] Interval           Transfer     Bandwidth       Retr  Cwnd
+# [  4]   0.00-0.00   sec  29.7 KBytes   204 Mbits/sec    0   18.4 KBytes
+# - - - - - - - - - - - - - - - - - - - - - - - - -
+# [ ID] Interval           Transfer     Bandwidth       Retr
+# [  4]   0.00-0.00   sec  29.7 KBytes   204 Mbits/sec    0             sender
+#         Sent 29.7 KByte /  587 KByte (5%) of 5min_fila_wifi.pcapng
+# [  4]   0.00-0.00   sec  21.2 KBytes   145 Mbits/sec                  receiver
