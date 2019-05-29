@@ -1,10 +1,8 @@
 from  operation_modes import *
 import numpy as np
 from packet_generator import generate_packets
-from sniffer import captura_pcap
-from sensor import *
-
 from threading import Thread
+from time import sleep
 
 camada1_delay_list = []
 camada1_throughput_list = []
@@ -33,7 +31,10 @@ arranjohoras = np.arange(start=1, stop=qtdhoras + 1, step=1)
 
 try:
     # captura_pcap(arquivo, interface, 10 * 60 )
+    print("\nInicializando retransmissão dos pacotes...\n")
     sensor = Thread(target=generate_packets(arquivo_amostra="15min_fila_wifi.pcapng", interface="wlan0", loops="19")).start()
+    sleep(1)
+    print("\nInicializando análise...\n")
     analise = Thread(target=benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_delay_list,
                    camada1_packetloss_list, camada1_throughput_list, usuario, arranjotempocoleta,
                    packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino))

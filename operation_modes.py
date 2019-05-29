@@ -1,4 +1,3 @@
-from sensor import *
 from graphics import *
 from metrics import *
 from sniffer import *
@@ -166,4 +165,3 @@ def benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_d
     grafico_packetloss(packetloss_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
     grafico_througput(throughput_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
     grafico_packet_vs_time(packetlistfinal, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
-    #benchmark_executado = True
