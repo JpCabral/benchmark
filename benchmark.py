@@ -34,10 +34,12 @@ arranjohoras = np.arange(start=1, stop=qtdhoras + 1, step=1)
 try:
     # captura_pcap(arquivo, interface, 10 * 60 )
     sensor = Thread(target=generate_packets(arquivo_amostra="15min_fila_wifi.pcapng", interface="wlan0", loops="19")).start()
-    benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_delay_list,
+    analise = Thread(target=benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_delay_list,
                    camada1_packetloss_list, camada1_throughput_list, usuario, arranjotempocoleta,
-                   packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino)
+                   packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino))
+
     sensor.join()
+    analise.join()
 
     # benchmark_default(vez, tempo, interface, janeladetempo, arquivo, usuario)
 
