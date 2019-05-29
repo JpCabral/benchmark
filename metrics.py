@@ -1,8 +1,6 @@
-import os
 import subprocess
 from scapy.all import rdpcap
-from sniffer import captura_pcap
-import time
+from time import sleep
 
 def packetloss_calc(arquivo, usuario):
     packets = rdpcap(arquivo)
@@ -11,8 +9,8 @@ def packetloss_calc(arquivo, usuario):
     pwd = (subprocess.getoutput('pwd')) + '/'
     arquivo = pwd + arquivo
 
-    retransmitidos_lista = subprocess.getoutput(
-        "runuser -l " + usuario + " -c 'tshark -r " + arquivo + " -T fields -e tcp.analysis.retransmission'")
+    retransmitidos_lista = subprocess.getoutput("tshark -r " + arquivo + " -T fields -e tcp.analysis.retransmission")
+
     try:
         for caso in retransmitidos_lista:
             if '1' in caso:
@@ -21,8 +19,8 @@ def packetloss_calc(arquivo, usuario):
             return 0
         loss = retransmitidos / totalpackets * 100
     except IndexError:
-        print('Sem pacotes para analisar... \naguardando 15 segundos...')
-        time.sleep(15)
+        print('Sem pacotes para analisar... \naguardando 5 segundos...')
+        sleep(5)
     return loss
 
 
