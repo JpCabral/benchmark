@@ -121,47 +121,48 @@ def benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_d
                    camada1_packetloss_list, camada1_throughput_list, usuario, arranjotempocoleta,
                    packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino):
 
-    for i in range(1, qtdhoras + 1):
-        print("###################################### Etapa: " + str(i) + " ######################################")
-        for etapa in arranjotempocoleta:
-            print("\nIteração ", etapa, "/", arranjotempocoleta[len(arranjotempocoleta) - 1])
-            captura_pcap(arquivo, interface, janeladetempo)
+                                for i in range(1, qtdhoras + 1):
+                                    print("###################################### Etapa: " + str(i) + " ######################################")
+                                    for etapa in arranjotempocoleta:
+                                        print("\nIteração ", etapa, "/", arranjotempocoleta[len(arranjotempocoleta) - 1])
+                                        captura_pcap(arquivo, interface, janeladetempo)
 
-            camada1_delay_list.append(delay_calc(arquivo, usuario))
-            camada1_packetloss_list.append(packetloss_calc(arquivo, usuario))
-            camada1_throughput_list.append(throughput_calc(janeladetempo, arquivo))
-            packetlist.append(len(rdpcap(arquivo)))
+                                        camada1_delay_list.append(delay_calc(arquivo, usuario))
+                                        camada1_packetloss_list.append(packetloss_calc(arquivo, usuario))
+                                        camada1_throughput_list.append(throughput_calc(janeladetempo, arquivo))
+                                        packetlist.append(len(rdpcap(arquivo)))
 
-        total = 0
+                                    total = 0
 
-        for delay in camada1_delay_list:
-            total += delay
-        total = total / len(arranjotempocoleta)
-        delay_horas.append(total)
-        total = 0
+                                    for delay in camada1_delay_list:
+                                        total += delay
+                                    total = total / len(arranjotempocoleta)
+                                    delay_horas.append(total)
+                                    total = 0
 
-        for throughput in camada1_throughput_list:
-            total += throughput
-        total = total / len(arranjotempocoleta)
-        throughput_horas.append(total)
-        total = 0
+                                    for throughput in camada1_throughput_list:
+                                        total += throughput
+                                    total = total / len(arranjotempocoleta)
+                                    throughput_horas.append(total)
+                                    total = 0
 
-        for packetloss in camada1_packetloss_list:
-            total += packetloss
-        total = total / len(arranjotempocoleta)
-        packetloss_horas.append(total)
-        total = 0
+                                    for packetloss in camada1_packetloss_list:
+                                        total += packetloss
+                                    total = total / len(arranjotempocoleta)
+                                    packetloss_horas.append(total)
+                                    total = 0
 
-        for packets in packetlist:
-            total += packets / len(arranjotempocoleta)
-        packetlistfinal.append(total)
+                                    for packets in packetlist:
+                                        total += packets / len(arranjotempocoleta)
+                                    packetlistfinal.append(total)
 
-        camada1_throughput_list.clear()
-        camada1_delay_list.clear()
-        camada1_packetloss_list.clear()
-        packetlist.clear()
-
-    grafico_delay(delay_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
-    grafico_packetloss(packetloss_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
-    grafico_througput(throughput_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
-    grafico_packet_vs_time(packetlistfinal, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
+                                    camada1_throughput_list.clear()
+                                    camada1_delay_list.clear()
+                                    camada1_packetloss_list.clear()
+                                    packetlist.clear()
+                                    
+                                print("\n Gerando gráficos ...")
+                                grafico_delay(delay_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
+                                grafico_packetloss(packetloss_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
+                                grafico_througput(throughput_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
+                                grafico_packet_vs_time(packetlistfinal, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
