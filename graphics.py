@@ -10,7 +10,6 @@ def grafico_througput(throughputlist, destino, time, arranjohoras):
     fig, ax = plt.subplots()
     ax.plot(x, y)
 
-    # ax.set(xlabel='time (min)', ylabel='throughput (bps)', title='Average Throughput')
     ax.set(xlabel='time (hours)', ylabel='throughput (bps)', title='Average Throughput')
     ax.grid()
     try:

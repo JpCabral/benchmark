@@ -1,7 +1,8 @@
-from graphics import *
+import graphics
 from metrics import *
 from sniffer import *
 from threading import Thread
+from time import strftime, localtime
 def margem_de_erro(qtdhoras, tempo, intervalo, arquivo, interface, janeladetempo, camada1_delay_list,
                    camada1_packetloss_list, camada1_throughput_list, usuario, camada1_delays,
                    camada1_packetloss, camada1_throughputs):
@@ -160,9 +161,9 @@ def benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_d
                                     camada1_delay_list.clear()
                                     camada1_packetloss_list.clear()
                                     packetlist.clear()
-                                    
+
                                 print("\n Gerando gráficos ...")
-                                grafico_delay(delay_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
-                                grafico_packetloss(packetloss_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
-                                grafico_througput(throughput_horas, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
-                                grafico_packet_vs_time(packetlistfinal, destino, time.strftime("%H:%M", time.localtime()), arranjohoras)
+                                grafico_delay(delay_horas, destino, strftime("%H:%M", localtime()), arranjohoras)
+                                grafico_packetloss(packetloss_horas, destino, strftime("%H:%M", localtime()), arranjohoras)
+                                grafico_througput(throughput_horas, destino, strftime("%H:%M", localtime()), arranjohoras)
+                                grafico_packet_vs_time(packetlistfinal, destino, strftime("%H:%M", localtime()), arranjohoras)
