@@ -1,5 +1,5 @@
 from  operation_modes import *
-from numpy import arange
+import numpy as np
 from packet_generator import generate_packets
 from threading import Thread
 from time import sleep
@@ -16,31 +16,28 @@ throughput_horas = []
 packetloss_horas = []
 delay_horas = []
 arquivo = '5min_fila_wifi.pcapng'
-janeladetempo =  1  # 5 * 60  # Segundos de captura do .pcapng
+janeladetempo = 5 * 60  # Segundos de captura do .pcapng
 interface = 'wlan0'
 usuario = 'pi'
 tempo = 60
 intervalo = 5
 vez = 0
 qtdhoras = 3
-destino = subprocess.getoutput('pwd') + '/test_results/'
+destino = subprocess.getoutput('pwd') + '/graphics/'
 benchmark_executado = False
 
-arranjotempocoleta = arange(start=0, stop=60 + 1, step=5)
-arranjohoras = arange(start=1, stop=qtdhoras + 1, step=1)
+arranjotempocoleta = np.arange(start=0, stop=60 + 1, step=5)
+arranjohoras = np.arange(start=1, stop=qtdhoras + 1, step=1)
 
 try:
     # captura_pcap(arquivo, interface, 10 * 60 )
     print("\nInicializando retransmissão dos pacotes...\n")
-    sensor = Thread(
-        target=generate_packets(arquivo_amostra="15min_fila_wifi.pcapng", interface="wlan0", loops="19")).start()
+    sensor = Thread(target=generate_packets(arquivo_amostra="15min_fila_wifi.pcapng", interface="wlan0", loops="19")).start()
     sleep(1)
     print("\nInicializando análise...\n")
     analise = Thread(target=benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_delay_list,
-                                                  camada1_packetloss_list, camada1_throughput_list, usuario,
-                                                  arranjotempocoleta,
-                                                  packetlist, delay_horas, throughput_horas, packetloss_horas,
-                                                  packetlistfinal, arranjohoras, destino))
+                   camada1_packetloss_list, camada1_throughput_list, usuario, arranjotempocoleta,
+                   packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino))
 
     sensor.join()
     analise.join()
@@ -49,7 +46,5 @@ try:
 
 except KeyboardInterrupt:
     print("Execução abortada pelo usuário")
-    sensor.join()
-    analise.join()
 except Exception as e:
     print(e)
