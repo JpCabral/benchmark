@@ -1,8 +1,10 @@
-import graphics
+from graphics import *
 from metrics import *
 from sniffer import *
 from threading import Thread
 from time import strftime, localtime
+from psutil import cpu_percent, virtual_memory
+
 def margem_de_erro(qtdhoras, tempo, intervalo, arquivo, interface, janeladetempo, camada1_delay_list,
                    camada1_packetloss_list, camada1_throughput_list, usuario, camada1_delays,
                    camada1_packetloss, camada1_throughputs):
@@ -121,12 +123,24 @@ def benchmark_default(vez, tempo, intervalo, arquivo, interface, janeladetempo, 
 def benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_delay_list,
                    camada1_packetloss_list, camada1_throughput_list, usuario, arranjotempocoleta,
                    packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino):
+                                log = "hardware_usage.txt"
+                                logtext = ""
+                                os.system("mkdir " + destino)
+                                os.system("mkdir " + destino + "[" + str(strftime("%H:%M", localtime())) + "]")
+                                destino += "[" + str(strftime("%H:%M", localtime())) + "]/"
 
+                                os.system("touch " + destino + log)
                                 for i in range(1, qtdhoras + 1):
                                     print("###################################### Etapa: " + str(i) + " ######################################")
                                     for etapa in arranjotempocoleta:
                                         print("\nIteração ", etapa, "/", arranjotempocoleta[len(arranjotempocoleta) - 1])
                                         captura_pcap(arquivo, interface, janeladetempo)
+
+
+                                        logtext +="[" + str(strftime("%H:%M", localtime())) + "]" + ' CPU :' + str(
+                                            cpu_percent(interval=1)) + '%       '
+                                        logtext +=' RAM :' + str(virtual_memory()[2]) + "%\n"
+
 
                                         camada1_delay_list.append(delay_calc(arquivo, usuario))
                                         camada1_packetloss_list.append(packetloss_calc(arquivo, usuario))
@@ -161,6 +175,10 @@ def benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_d
                                     camada1_delay_list.clear()
                                     camada1_packetloss_list.clear()
                                     packetlist.clear()
+
+                                file = open(destino + log, "w")
+                                file.write(logtext)
+                                file.close()
 
                                 print("\n Gerando gráficos ...")
                                 grafico_delay(delay_horas, destino, strftime("%H:%M", localtime()), arranjohoras)

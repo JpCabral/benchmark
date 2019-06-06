@@ -1,5 +1,5 @@
 from  operation_modes import *
-import numpy as np
+from numpy import arange
 from packet_generator import generate_packets
 from threading import Thread
 from time import sleep
@@ -23,11 +23,11 @@ tempo = 60
 intervalo = 5
 vez = 0
 qtdhoras = 3
-destino = subprocess.getoutput('pwd') + '/graphics/'
+destino = subprocess.getoutput('pwd') + '/test_results/'
 benchmark_executado = False
 
-arranjotempocoleta = np.arange(start=0, stop=60 + 1, step=5)
-arranjohoras = np.arange(start=1, stop=qtdhoras + 1, step=1)
+arranjotempocoleta = arange(start=0, stop=60 + 1, step=5)
+arranjohoras = arange(start=1, stop=qtdhoras + 1, step=1)
 
 try:
     # captura_pcap(arquivo, interface, 10 * 60 )
@@ -49,5 +49,7 @@ try:
 
 except KeyboardInterrupt:
     print("Execução abortada pelo usuário")
+    sensor.join()
+    analise.join()
 except Exception as e:
     print(e)
