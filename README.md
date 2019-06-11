@@ -3,6 +3,7 @@ Requisitos do Dispositivo IoT:
 * pip3 install matplotlib;
 * pip3 install scapy;
 * pip3 install numpy;
+* pip3 install psutil;
 * pip3 install paho-mqtt;
 * pip3 install GPIO;
 * pip3 install serial;
