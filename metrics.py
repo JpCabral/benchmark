@@ -40,8 +40,8 @@ def delay_calc(arquivo, usuario):
     pwd = (subprocess.getoutput('pwd')) + '/'
     arquivo = pwd + arquivo
 
-    lista_de_delays = subprocess.getoutput(
-        "runuser -l " + usuario + " -c 'tshark -r " + arquivo + " -T fields -e frame.time_delta_displayed'")
+    lista_de_delays = subprocess.getoutput("tshark -r " + arquivo + " -T fields -e frame.time_delta_displayed")
+    # print (lista_de_delays)
     lista_de_delays = lista_de_delays.splitlines()
 
     for delay in lista_de_delays:

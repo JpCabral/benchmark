@@ -125,10 +125,16 @@ def benchmark_media_horas(qtdhoras, arquivo, interface, janeladetempo, camada1_d
                    packetlist, delay_horas, throughput_horas, packetloss_horas, packetlistfinal, arranjohoras,destino):
                                 log = "hardware_usage.txt"
                                 logtext = ""
-                                os.system("mkdir " + destino)
-                                os.system("mkdir " + destino + "[" + str(strftime("%H:%M", localtime())) + "]")
-                                destino += "[" + str(strftime("%H:%M", localtime())) + "]/"
+                                if os.path.exists(destino) == False:
+                                    print("Criando test results...")
+                                    os.system("mkdir " + destino)
+                                print("Preparando pasta do teste...")
+                                os.system("mkdir " + destino + "Test-[" + str(strftime("%H:%M", localtime())) + "]")
+                                destino += "Test-[" + str(strftime("%H:%M", localtime())) + "]/"
+                                print(destino)
+                                #/root/PycharmProjects/benchmark/test\ results/Test\ \[15\:25\]/
 
+                                #/root/PycharmProjects/benchmark/test\\ results/[16:36]/hardware_usage.txt
                                 os.system("touch " + destino + log)
                                 for i in range(1, qtdhoras + 1):
                                     print("###################################### Etapa: " + str(i) + " ######################################")

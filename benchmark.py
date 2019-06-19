@@ -1,5 +1,5 @@
 from  operation_modes import *
-import numpy as np
+from numpy import arange
 from packet_generator import generate_packets
 from threading import Thread
 from time import sleep
@@ -16,18 +16,19 @@ throughput_horas = []
 packetloss_horas = []
 delay_horas = []
 arquivo = '5min_fila_wifi.pcapng'
-janeladetempo = 5 * 60  # Segundos de captura do .pcapng
-interface = 'wlan0'
-usuario = 'pi'
+janeladetempo = 1 #5 * 60  # Segundos de captura do .pcapng
+interface = 'br0'
+usuario = 'manager'
 tempo = 60
 intervalo = 5
 vez = 0
 qtdhoras = 3
-destino = subprocess.getoutput('pwd') + '/graphics/'
+destino = subprocess.getoutput('pwd') + '/test-results/'
 benchmark_executado = False
 
-arranjotempocoleta = np.arange(start=0, stop=60 + 1, step=5)
-arranjohoras = np.arange(start=1, stop=qtdhoras + 1, step=1)
+# /root/PycharmProjects/benchmark/test results/Test-[17:11]
+arranjotempocoleta = arange(start=0, stop=60 + 1, step=5)
+arranjohoras = arange(start=1, stop=qtdhoras + 1, step=1)
 
 try:
     # captura_pcap(arquivo, interface, 10 * 60 )
@@ -46,5 +47,6 @@ try:
 
 except KeyboardInterrupt:
     print("Execução abortada pelo usuário")
+    
 except Exception as e:
     print(e)
