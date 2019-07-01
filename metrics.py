@@ -51,7 +51,7 @@ def delay_calc(arquivo, usuario):
         except ValueError:
             continue
     try:
-        return delays / len(lista_de_delays) * 1000  # Delay médio em milissegundos
+        return delays / len(lista_de_delays) / 1000000  # Delay médio em milissegundos
     except ZeroDivisionError:
         # 0 Pacotes foram capturados, portanto retorna-se 0.0
         return 0.0
